@@ -8,6 +8,7 @@ import { useMounted } from '@/hooks/use-mounted';
 import { Skeleton } from './ui/skeleton';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
+import Image from 'next/image';
 
 export default function NavigationBar() {
   const pathname = usePathname();
@@ -23,7 +24,15 @@ export default function NavigationBar() {
 
   return (
     <div className="flex items-center justify-between p-4">
-      <div className="size-6 rounded-full bg-indigo-400"></div>
+      <div className="size-8 rounded-full">
+        <Image
+          src={'https://avatars.githubusercontent.com/u/87375380?v=4'}
+          alt="Harith Iqbal"
+          width={35}
+          height={35}
+          className="rounded-full"
+        />
+      </div>
       <div className="flex items-center space-x-4">
         <Link
           href="/"
