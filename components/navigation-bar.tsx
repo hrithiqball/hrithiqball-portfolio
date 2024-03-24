@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { Button } from './ui/button';
-import { MailIcon, Moon, Sun } from 'lucide-react';
+import { Github, Linkedin, MailIcon, Moon, Sun } from 'lucide-react';
 import { useTheme } from 'next-themes';
 import { useMounted } from '@/hooks/use-mounted';
 import { Skeleton } from './ui/skeleton';
@@ -56,9 +56,21 @@ export default function NavigationBar() {
         <Button size="icon" variant="ghost" onClick={handleThemeChange}>
           {theme === 'dark' ? <Moon size={18} /> : <Sun size={18} />}
         </Button>
-        <Button size="icon" variant="ghost">
-          <MailIcon size={18} />
-        </Button>
+        <Link href="https://www.linkedin.com/in/hrithiqball/" target="_blank">
+          <Button size="icon" variant="ghost">
+            <Linkedin size={18} />
+          </Button>
+        </Link>
+        <Link href="https://github.com/hrithiqball" target="_blank">
+          <Button size="icon" variant="ghost">
+            <Github size={18} />
+          </Button>
+        </Link>
+        <Link href="mailto:hrithiqball@gmail.com">
+          <Button size="icon" variant="ghost">
+            <MailIcon size={18} />
+          </Button>
+        </Link>
       </div>
     </div>
   );
