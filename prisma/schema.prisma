@@ -1,0 +1,51 @@
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "linux-musl-openssl-3.0.x"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Post {
+  id        String    @id @default(cuid())
+  title     String
+  createdOn DateTime  @map("created_on") @db.Timestamptz(6) @default(now())
+  content   Content[]
+
+  @@map("post")
+}
+
+model Content {
+  id       String      @id @default(cuid())
+  postId   String      @map("post_id")
+  type     ContentType @default(P)
+  text     String?
+  url      String?
+  alt      String?
+  code     String?
+  language String?
+  caption  String?
+  order    Int
+  post     Post        @relation(fields: [postId], references: [id], onDelete: Cascade)
+
+  @@map("content")
+}
+
+enum ContentType {
+  H1
+  H2
+  H3
+  H4
+  H5
+  H6
+  ITALLIC
+  BOLD
+  UNDERLINE
+  STRIKETHROUGH
+  P
+  IMAGE
+  LINK
+  CODE
+}
