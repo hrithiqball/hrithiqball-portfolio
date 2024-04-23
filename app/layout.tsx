@@ -22,7 +22,9 @@ export default function RootLayout({
     <html lang="en" className="flex h-screen" suppressHydrationWarning>
       <body className={cn(inter.className, 'flex flex-1 flex-col')}>
         <Providers>
-          <NavigationBar />
+          <div className="fixed top-0 z-50 w-full">
+            <NavigationBar />
+          </div>
           {children}
           <Toaster />
         </Providers>

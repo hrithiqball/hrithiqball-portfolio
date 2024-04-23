@@ -23,7 +23,7 @@ export default function NavigationBar() {
   if (!mounted) return <NavigationBarSkeleton />;
 
   return (
-    <div className="flex items-center justify-between p-4">
+    <div className="bg-blur flex w-full items-center justify-between rounded-lg bg-opacity-30 p-4 backdrop-blur-lg backdrop-filter">
       <div className="size-8 rounded-full">
         <Image
           src={'https://avatars.githubusercontent.com/u/87375380?v=4'}
