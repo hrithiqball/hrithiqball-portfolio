@@ -31,7 +31,9 @@ export default function XpCard({ xp }: XpCardProps) {
     <Dialog>
       <DialogTrigger>
         <div className="prose max-h-40 min-h-40 rounded border border-blue-500 p-4">
-          <h2 className={cn('text-gray-300', MotoGP.className)}>{xp.title}</h2>
+          <h2 className={cn('text-white dark:text-gray-300', MotoGP.className)}>
+            {xp.title}
+          </h2>
           <XpIcon icon={xp.icon} />
         </div>
       </DialogTrigger>
