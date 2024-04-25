@@ -1,28 +1,13 @@
 'use server';
 
 import { db } from '@/lib/db';
-import { CreateContent } from '@/schema/content.schema';
 import { CreatePostInput } from '@/schema/post.schema';
 
-export async function createPost(
-  post: CreatePostInput,
-  contents: CreateContent[],
-) {
+export async function createPost(post: CreatePostInput) {
   try {
-    await db.post
-      .create({
-        data: {
-          title: post.title,
-        },
-      })
-      .then(async res => {
-        await db.content.createMany({
-          data: contents.map(content => ({
-            ...content,
-            postId: res.id,
-          })),
-        });
-      });
+    await db.post.create({
+      data: { ...post },
+    });
   } catch (error) {
     console.error(error);
     throw new Error('Error creating post');

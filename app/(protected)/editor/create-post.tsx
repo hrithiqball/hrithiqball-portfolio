@@ -12,18 +12,31 @@ import {
 } from '@/components/ui/form';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
 
 import { CreatePostInput, CreatePostSchema } from '@/schema/post.schema';
 import { useState, useTransition } from 'react';
-import { CreateContent } from '@/schema/content.schema';
 import { toast } from 'sonner';
 import { createPost } from '@/data/post.action';
+import DOMPurify from 'dompurify';
+import { Textarea } from '@/components/ui/textarea';
+import {
+  Heading1,
+  Heading2,
+  Heading3,
+  Heading4,
+  Heading5,
+  Heading6,
+  ImageIcon,
+  List,
+  ListOrdered,
+  Minus,
+} from 'lucide-react';
 
 export default function CreatePost() {
   const [transitioning, startTransition] = useTransition();
 
   const [content, setContent] = useState('');
+  const [preview, setPreview] = useState('');
 
   const form = useForm<CreatePostInput>({
     resolver: zodResolver(CreatePostSchema),
@@ -31,21 +44,7 @@ export default function CreatePost() {
 
   function onSubmit(data: CreatePostInput) {
     startTransition(() => {
-      const newContent: CreateContent = {
-        order: 1,
-        text: content,
-        type: 'H1',
-      };
-
-      const newContent2: CreateContent = {
-        order: 2,
-        text: content,
-        type: 'P',
-      };
-
-      const combinedContent = [newContent, newContent2];
-
-      toast.promise(createPost(data, combinedContent), {
+      toast.promise(createPost(data), {
         loading: 'Creating post...',
         success: 'Post created',
         error: 'Error creating post',
@@ -53,12 +52,48 @@ export default function CreatePost() {
     });
   }
 
-  function handleContentChange(event: React.ChangeEvent<HTMLInputElement>) {
-    setContent(event.target.value);
+  function handleContentChange(event: React.ChangeEvent<HTMLTextAreaElement>) {
+    const input = event.target.value;
+    setContent(input);
+
+    const sanitized = DOMPurify.sanitize(input);
+    setPreview(sanitized);
   }
 
   return (
     <div className="flex flex-col space-y-4">
+      <div className="flex space-x-1">
+        <Button variant={'outline'} size={'icon'}>
+          <Heading1 size={18} />
+        </Button>
+        <Button variant={'outline'} size={'icon'}>
+          <Heading2 size={18} />
+        </Button>
+        <Button variant={'outline'} size={'icon'}>
+          <Heading3 size={18} />
+        </Button>
+        <Button variant={'outline'} size={'icon'}>
+          <Heading4 size={18} />
+        </Button>
+        <Button variant={'outline'} size={'icon'}>
+          <Heading5 size={18} />
+        </Button>
+        <Button variant={'outline'} size={'icon'}>
+          <Heading6 size={18} />
+        </Button>
+        <Button variant={'outline'} size={'icon'}>
+          <ImageIcon size={18} />
+        </Button>
+        <Button variant={'outline'} size={'icon'}>
+          <Minus size={18} />
+        </Button>
+        <Button variant={'outline'} size={'icon'}>
+          <List size={18} />
+        </Button>
+        <Button variant={'outline'} size={'icon'}>
+          <ListOrdered size={18} />
+        </Button>
+      </div>
       <Form {...form}>
         <form
           id="create-post-form"
@@ -78,15 +113,28 @@ export default function CreatePost() {
               </FormItem>
             )}
           />
+          <FormField
+            control={form.control}
+            name="content"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Content</FormLabel>
+                <FormControl>
+                  <Textarea
+                    {...field}
+                    value={content}
+                    onChange={handleContentChange}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
         </form>
       </Form>
-      <Label htmlFor="content">Content</Label>
-      <Input
-        id="content"
-        type="text"
-        value={content}
-        onChange={handleContentChange}
-      />
+      <div className="">
+        <div dangerouslySetInnerHTML={{ __html: preview }} />
+      </div>
       <div className="flex flex-row-reverse">
         <Button
           type="submit"
