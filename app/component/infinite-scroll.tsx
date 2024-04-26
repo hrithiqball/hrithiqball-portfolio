@@ -57,7 +57,7 @@ export default function InfiniteScroll() {
 
 function Card({ image }: { image: string }) {
   return (
-    <div className="relative flex h-[100px] w-[100px] items-center justify-start overflow-hidden rounded-xl border border-solid border-indigo-200 dark:border-none dark:bg-slate-800">
+    <div className="relative flex size-[70px] items-center justify-start overflow-hidden rounded-xl border border-solid border-indigo-200 dark:border-none dark:bg-slate-800 sm:size-[100px]">
       <Image
         src={`/image/${image}.png`}
         alt="image"
