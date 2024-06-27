@@ -1,4 +1,3 @@
-import { ContentType } from '@prisma/client';
 import { z } from 'zod';
 
 export const CreateContentSchema = z.object({
@@ -16,7 +15,4 @@ export const CreateContentInputSchema = z.object({
   text: z.string().optional(),
 });
 
-export type CreateContent = z.infer<typeof CreateContentSchema> & {
-  type: ContentType;
-};
 export type CreateContentInput = z.infer<typeof CreateContentSchema>;
