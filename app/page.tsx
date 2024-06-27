@@ -1,8 +1,10 @@
 import { cn } from '@/lib/utils';
 import json from '@/public/xp.json';
 import localFont from 'next/font/local';
-import XpCard from './component/xp-card';
-import InfiniteScroll from './component/infinite-scroll';
+import XpCard from './components/xp-card';
+import TechStacks from './components/tech-stacks';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import CareerTree from './components/career-tree';
 
 const MotoGP = localFont({
   src: '../public/font/MotoGPDisplay-Bold.woff2',
@@ -10,7 +12,7 @@ const MotoGP = localFont({
 
 export default function page() {
   return (
-    <div className="flex flex-1 flex-col items-center justify-center">
+    <div className="flex flex-1 flex-col items-center justify-center space-y-8 pb-8">
       <div className="relative flex h-[70vh] w-full flex-col items-center justify-center bg-white bg-grid-black/[0.2] dark:bg-background dark:bg-grid-white/[0.2]">
         <div className="pointer-events-none absolute inset-0 flex items-center justify-center bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)] dark:bg-background"></div>
         <h1
@@ -36,31 +38,8 @@ export default function page() {
           </p>
         </div>
       </div>
-      <InfiniteScroll />
-      <div className="flex h-[70vh] w-full flex-col bg-blue-300 dark:bg-blue-950">
-        <h1 className={cn('px-4 text-2xl', MotoGP.className)}>Experience</h1>
-        <div className="grid grid-cols-4 gap-4 p-4">
-          {json.map(xp => (
-            <XpCard key={xp.id} xp={xp} />
-          ))}
-        </div>
-      </div>
-      <div className="flex h-[70vh] w-full flex-col bg-blue-200">
-        <h1 className={cn('px-4 text-2xl', MotoGP.className)}>Career</h1>
-        <div className="grid grid-cols-4 p-4">
-          {json.map(xp => (
-            <XpCard key={xp.id} xp={xp} />
-          ))}
-        </div>
-      </div>
-      <div className="flex h-[70vh] w-full flex-col bg-red-400">
-        <h1 className={cn('px-4 text-2xl', MotoGP.className)}>Education</h1>
-        <div className="grid grid-cols-4 p-4">
-          {json.map(xp => (
-            <XpCard key={xp.id} xp={xp} />
-          ))}
-        </div>
-      </div>
+      <TechStacks />
+      <CareerTree />
     </div>
   );
 }
