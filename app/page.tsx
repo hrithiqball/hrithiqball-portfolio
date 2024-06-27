@@ -1,10 +1,7 @@
 import { cn } from '@/lib/utils';
-import json from '@/public/xp.json';
 import localFont from 'next/font/local';
-import XpCard from './components/xp-card';
-import TechStacks from './components/tech-stacks';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import CareerTree from './components/career-tree';
+import TechStacks from './components/tech-stacks';
 
 const MotoGP = localFont({
   src: '../public/font/MotoGPDisplay-Bold.woff2',

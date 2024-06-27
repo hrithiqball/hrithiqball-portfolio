@@ -9,6 +9,12 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '@/components/ui/tooltip';
 import { cn } from '@/lib/utils';
 
 export default function TechStacks() {
@@ -127,26 +133,31 @@ const TechStackCard = ({
   return (
     <figure
       className={cn(
-        'relative w-64 cursor-pointer overflow-hidden rounded-xl border p-4',
+        'relative w-28 cursor-pointer overflow-hidden rounded-xl border p-4',
         'border-gray-950/[.1] bg-gray-950/[.01] hover:bg-gray-950/[.05]',
         'dark:border-gray-50/[.1] dark:bg-gray-50/[.10] dark:hover:bg-gray-50/[.15]',
       )}
     >
-      <div className="flex flex-row items-center gap-2">
-        <img
-          className="size-8 object-contain"
-          width="32"
-          height="32"
-          alt=""
-          src={img}
-        />
-        <div className="flex flex-col">
-          <figcaption className="text-sm font-medium dark:text-white">
-            {name}
-          </figcaption>
-        </div>
+      <div className="flex min-h-14 flex-row items-center justify-center gap-2">
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <img
+                className="size-8 object-contain"
+                width="32"
+                height="32"
+                alt=""
+                src={img}
+              />
+            </TooltipTrigger>
+            <TooltipContent>
+              <p>
+                {name} - {description}
+              </p>
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
       </div>
-      <blockquote className="mt-2 text-sm">{description}</blockquote>
     </figure>
   );
 };
